@@ -2,7 +2,15 @@
   <div class="col" v-for="item in items" :key="item.id">
     <div class="item">
       <h3>{{ item.title }}</h3>
-      <p>{{ n(item.price, 'currencyFormat') }}</p>
+      <i18n-n tag="p" :value="item.price" format="currencyFormat">
+        <template #currency="slotProps">
+          <b v-if="locale === 'hr'">kn</b>
+          <b v-else>{{ slotProps.currency }}</b>
+        </template>
+        <template #fraction="slotProps"
+          ><small>{{ slotProps.fraction }}</small>
+        </template>
+      </i18n-n>
       <p class="description">{{ truncateDescription(item.description, 70) }}</p>
       <p>Posted: {{ item.date.toLocaleDateString('en') }}</p>
       <button @click="addItemToCart(item.id)">Add to cart</button>
@@ -17,7 +25,7 @@ import { useI18n } from 'vue-i18n';
 
 export default {
   setup() {
-    const { n } = useI18n();
+    const { n, locale } = useI18n();
     const store = useStore();
 
     const items = computed(() => store.getters.items);
@@ -29,6 +37,7 @@ export default {
 
     return {
       n,
+      locale,
       items,
       addItemToCart,
       truncateDescription
