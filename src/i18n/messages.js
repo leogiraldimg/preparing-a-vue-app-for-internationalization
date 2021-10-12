@@ -18,7 +18,8 @@ export default {
         'The most popular item on the website is the { itm }, but not for long!'
     },
     items: {
-      posted: 'Posted'
+      posted: 'Posted',
+      addToCart: 'Add to cart'
     }
   },
   hr: {
@@ -40,7 +41,8 @@ export default {
         'The most popular item on the website is the { itm }, but not for long!'
     },
     items: {
-      posted: 'Objavljeno'
+      posted: 'Objavljeno',
+      addToCart: 'Dodaj u košaricu'
     }
   }
 };
