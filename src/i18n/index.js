@@ -10,7 +10,8 @@ const messages = {
       cart: "Cart",
       subtotal: "Subtotal",
       clearButton: "Remove this item"
-    }
+    },
+    popularItem: "The most popular item on the website is the { itm }, but not for long!"
   },
   hr: {
     routes: {
@@ -21,7 +22,8 @@ const messages = {
       cart: "Kosarica",
       subtotal: "Ukupno",
       clearButton: "Ukloni ovaj artikl"
-    }
+    },
+    popularItem: "Najpopularniji artikl na stranici je {itm}, ali ne zadugo!"
   }
 };
 
