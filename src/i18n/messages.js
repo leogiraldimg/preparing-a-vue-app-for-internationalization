@@ -30,7 +30,7 @@ export default {
       cart: 'Kosarica',
       subtotal: 'Ukupno',
       clearButton: 'Ukloni ovaj artikl',
-      items: 'artikl'
+      items: '{n} artikl | {n} artikla | {n} artikala'
     },
     aboutUs: {
       firstParagraph: "Saznajte više @.lower:routes.about{'.'}",

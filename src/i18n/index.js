@@ -1,7 +1,8 @@
 import { createI18n } from 'vue-i18n';
-import messages from "./messages.js"
-import numberFormats from "./numberFormats.js"
-import datetimeFormats from "./datetimeFormats.js"
+import messages from './messages.js';
+import numberFormats from './numberFormats.js';
+import datetimeFormats from './datetimeFormats.js';
+import pluralRules from './pluralRules.js';
 
 export default createI18n({
   locale: 'en',
@@ -10,5 +11,6 @@ export default createI18n({
   globalInjection: true,
   messages,
   numberFormats,
-  datetimeFormats
+  datetimeFormats,
+  pluralRules
 });
