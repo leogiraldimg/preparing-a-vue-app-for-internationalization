@@ -1,29 +1,27 @@
 <template>
   <div class="cart">
     <div class="cartButton" @click="toggleCart">
-      {{ $t("cart.cart") }}
-      <span
-        :class="['total', {totalChanged: itemAddedAnimation}]"
-      >{{ numOfItemsInCart }}</span>
+      {{ $t('cart.cart') }}
+      <span :class="['total', { totalChanged: itemAddedAnimation }]">{{
+        numOfItemsInCart
+      }}</span>
     </div>
-    <div
-      class="cartItems"
-      :style="{display: cartVisible ? 'block': 'none'}"
-    >
-      <h3 class="col">{{ $t("cart.subtotal") }}: ${{ subtotalFormatted }}</h3>
+    <div class="cartItems" :style="{ display: cartVisible ? 'block' : 'none' }">
+      <h3 class="col">
+        {{ $t('cart.subtotal') }}: {{ $n(subtotal, 'currencyFormat') }}
+      </h3>
       <div class="col" v-for="item in itemsInCart" :key="item.id">
         <div class="item">
           <h3>{{ item.title }}</h3>
-          <p>${{ formatPrice(item.subtotal) }}</p>
+          <p>{{ $n(item.subtotal, 'currencyFormat') }}</p>
           <p class="itemQuantity">
             <button @click="addItemToCart(item.id)">+</button>
             <span>{{ item.quantity }}</span>
             <button @click="removeItemFromCart(item.id)">-</button>
           </p>
-          <button
-            class="clearButton"
-            @click="clearItemFromCart(item.id)"
-          >{{ $t("cart.clearButton") }}</button>
+          <button class="clearButton" @click="clearItemFromCart(item.id)">
+            {{ $t('cart.clearButton') }}
+          </button>
         </div>
       </div>
     </div>
@@ -31,7 +29,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
   data() {
@@ -41,25 +39,14 @@ export default {
     };
   },
   computed: {
-    ...mapGetters([
-      "itemsInCart",
-      "numOfItemsInCart",
-      "subtotalFormatted"
-    ])
+    ...mapGetters(['itemsInCart', 'numOfItemsInCart', 'subtotal'])
   },
   methods: {
-    ...mapActions([
-      "addItemToCart",
-      "removeItemFromCart",
-      "clearItemFromCart"
-    ]),
+    ...mapActions(['addItemToCart', 'removeItemFromCart', 'clearItemFromCart']),
     toggleCart() {
       if (this.numOfItemsInCart > 0) {
         this.cartVisible = !this.cartVisible;
       }
-    },
-    formatPrice(price) {
-      return price.toFixed(2);
     }
   },
   watch: {

@@ -1,5 +1,21 @@
 import { createI18n } from 'vue-i18n';
 
+const numberFormats = {
+  en: {
+    currencyFormat: {
+      style: 'currency',
+      currency: 'USD',
+      currencyDisplay: 'symbol'
+    }
+  },
+  hr: {
+    currencyFormat: {
+      style: 'currency',
+      currency: 'HRK'
+    }
+  }
+};
+
 const messages = {
   en: {
     routes: {
@@ -12,7 +28,7 @@ const messages = {
       clearButton: 'Remove this item'
     },
     aboutUs: {
-      firstParagraph: 'Learn more @.lower:routes.about{\'.\'}',
+      firstParagraph: "Learn more @.lower:routes.about{'.'}",
       secondParagraph:
         'We are a small company with big dreams. Our goal is to provide items to all of the people in the world. Stay tuned, because your country might be our next destination!',
       popularItem:
@@ -30,7 +46,7 @@ const messages = {
       clearButton: 'Ukloni ovaj artikl'
     },
     aboutUs: {
-      firstParagraph: 'Saznajte više @.lower:routes.about{\'.\'}',
+      firstParagraph: "Saznajte više @.lower:routes.about{'.'}",
       secondParagraph:
         'Mi smo mala tvrtka s velikim snovima. Naš cilj je pružiti artikle svim ljudima u svijetu. Ostanite uz nas, jer bi vaša zemlja mogla biti naše sljedeće odredište!',
       popularItem:
@@ -44,5 +60,6 @@ export default createI18n({
   legacy: false,
   fallbackLocale: 'hr',
   globalInjection: true,
-  messages: messages
+  messages: messages,
+  numberFormats: numberFormats
 });

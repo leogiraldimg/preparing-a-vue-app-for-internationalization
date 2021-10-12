@@ -2,37 +2,33 @@
   <div class="col" v-for="item in items" :key="item.id">
     <div class="item">
       <h3>{{ item.title }}</h3>
-      <p>${{ item.price }}</p>
-      <p
-        class="description"
-      >{{ truncateDescription(item.description, 70) }}</p>
-      <p>Posted: {{ item.date.toLocaleDateString("en") }}</p>
+      <p>{{ n(item.price, 'currencyFormat') }}</p>
+      <p class="description">{{ truncateDescription(item.description, 70) }}</p>
+      <p>Posted: {{ item.date.toLocaleDateString('en') }}</p>
       <button @click="addItemToCart(item.id)">Add to cart</button>
     </div>
   </div>
 </template>
 
 <script>
-import { useStore } from "vuex";
-import { computed } from "vue";
+import { useStore } from 'vuex';
+import { computed } from 'vue';
+import { useI18n } from 'vue-i18n';
 
 export default {
   setup() {
+    const { n } = useI18n();
     const store = useStore();
 
-    const items = computed(
-      () => store.getters.items
-    );
+    const items = computed(() => store.getters.items);
 
-    const addItemToCart = (itemId) =>
-      store.dispatch("addItemToCart", itemId);
+    const addItemToCart = itemId => store.dispatch('addItemToCart', itemId);
 
     const truncateDescription = (desc, limit) =>
-      desc.length > limit
-        ? desc.slice(0, limit) + "..."
-        : desc;
+      desc.length > limit ? desc.slice(0, limit) + '...' : desc;
 
     return {
+      n,
       items,
       addItemToCart,
       truncateDescription
