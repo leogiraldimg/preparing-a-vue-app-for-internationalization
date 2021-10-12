@@ -7,6 +7,9 @@
       }}</span>
     </div>
     <div class="cartItems" :style="{ display: cartVisible ? 'block' : 'none' }">
+      <h3 class="col numberOfItems">
+        {{ $t('cart.items', numOfItemsInCart) }}
+      </h3>
       <h3 class="col">
         {{ $t('cart.subtotal') }}: {{ $n(subtotal, 'currencyFormat') }}
       </h3>
@@ -150,5 +153,10 @@ export default {
   font-size: 18px;
   cursor: pointer;
   border-radius: 6px;
+}
+
+.numOfItems {
+  margin: 0;
+  padding: 0;
 }
 </style>
