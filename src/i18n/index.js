@@ -5,11 +5,17 @@ import datetimeFormats from './datetimeFormats.js';
 import pluralRules from './pluralRules.js';
 
 const DEFAULT_LOCALE = 'en';
-const extractLanguage = locale => {
+const extractLanguage = (locale) => {
   return locale.split('-')[0];
 };
 
 function getDefaultLocale() {
+  const persistedLocale = localStorage.getItem('locale');
+
+  if (persistedLocale) {
+    return persistedLocale;
+  }
+
   const availableLocales = Reflect.ownKeys(messages);
   const navigatorLocale = navigator.language;
 
@@ -30,7 +36,7 @@ function getDefaultLocale() {
   }
 
   const fallback = availableLocales.find(
-    locale => extractLanguage(locale) === navigatorLang
+    (locale) => extractLanguage(locale) === navigatorLang
   );
 
   return fallback ? fallback : DEFAULT_LOCALE;
