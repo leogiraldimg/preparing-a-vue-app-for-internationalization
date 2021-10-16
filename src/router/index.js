@@ -1,22 +1,39 @@
-import {
-  createRouter,
-  createWebHistory
-} from "vue-router";
+import { createRouter, createWebHistory, RouterView } from 'vue-router';
 
-import Items from "@/views/Items.vue";
-import About from "@/views/About.vue";
+import i18n from '@/i18n';
+import Items from '@/views/Items.vue';
+import About from '@/views/About.vue';
 
 const routes = [
   {
-    path: "/items",
-    name: "Items",
-    component: Items,
-    alias: "/"
-  },
-  {
-    path: "/about",
-    name: "About",
-    component: About
+    path: '/:locale?',
+    component: RouterView,
+    beforeEnter(to, from, next) {
+      const paramLocale = to.params.locale;
+
+      if (!i18n.global.availableLocales.includes(paramLocale)) {
+        return next(i18n.global.locale.value);
+      }
+
+      if (i18n.global.locale.value !== paramLocale) {
+        i18n.global.locale.value = paramLocale;
+      }
+
+      return next();
+    },
+    children: [
+      {
+        path: 'items',
+        name: 'Items',
+        component: Items,
+        alias: ''
+      },
+      {
+        path: 'about',
+        name: 'About',
+        component: About
+      }
+    ]
   }
 ];
 
