@@ -1,6 +1,10 @@
 import { createRouter, createWebHistory, RouterView } from 'vue-router';
 
-import i18n from '@/i18n';
+import i18n, {
+  SUPPORTED_LOCALES,
+  getDefaultLocale,
+  loadLocaleMessages
+} from '@/i18n';
 import Items from '@/views/Items.vue';
 import About from '@/views/About.vue';
 
@@ -11,15 +15,18 @@ const routes = [
     beforeEnter(to, from, next) {
       const paramLocale = to.params.locale;
 
-      if (!i18n.global.availableLocales.includes(paramLocale)) {
-        return next(i18n.global.locale.value);
+      if (!SUPPORTED_LOCALES.includes(paramLocale)) {
+        return next(getDefaultLocale());
       }
 
-      if (i18n.global.locale.value !== paramLocale) {
-        i18n.global.locale.value = paramLocale;
-      }
+      loadLocaleMessages(i18n.global, paramLocale).then(() => {
+        if (i18n.global.locale.value !== paramLocale) {
+          i18n.global.locale.value = paramLocale;
+          document.querySelector('html').setAttribute('lang', paramLocale);
+        }
 
-      return next();
+        return next();
+      });
     },
     children: [
       {
